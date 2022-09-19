@@ -7,12 +7,28 @@ module.exports = {
     "plugin:vue/vue3-essential",
     "eslint:recommended",
     "plugin:prettier/recommended",
+    "prettier",
   ],
   parserOptions: {
     parser: "@babel/eslint-parser",
   },
   rules: {
+    "prettier/prettier": 0,
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    // "prettier/prettier": [
+    //   "error",
+    //   {
+    //     endOfLine: "auto", // or "auto"
+    //   },
+    // ],
+    "vue/multi-word-component-names": 0,
+    "vue/html-closing-bracket-newline": [
+      "error",
+      {
+        singleline: "never",
+        multiline: "never",
+      },
+    ],
   },
 };
