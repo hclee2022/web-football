@@ -43,16 +43,11 @@ public class BoardController {
         String schType = request.getParameter("schType");
         String schVal = request.getParameter("schVal");
 
-        int rows = Integer.parseInt(request.getParameter("rows"));
-        int page = Integer.parseInt(request.getParameter("page"));
-
         String[] sort = URLDecoder.decode(request.getParameter("sort"), "UTF-8").split(",");
 
         BoardVO vo = new BoardVO();
         vo.setSchType(schType);
         vo.setSchVal(schVal);
-        vo.setStartNo(((page * rows) - rows) + 1);
-        vo.setEndNo(page * rows);
         vo.setSort(sort);
 
         List<BoardVO> result = boardService.selectBoardList(vo);

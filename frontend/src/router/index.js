@@ -8,11 +8,13 @@ const routes = [
     name: "Main",
     redirect: "/home",
   },
-  // {
-  //   path: "*",
-  //   name: "PageNotFound",
-  //   component: () => import("@/views/error/404.vue"),
-  // },
+  {
+    // path: "*",
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () =>
+      import("@/views/error/PageNotFound.vue"),
+  },
   {
     path: "/home",
     name: "home",
@@ -21,11 +23,26 @@ const routes = [
   {
     path: "/list",
     name: "BoardList",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import("@/views/board/ListView.vue"),
+  },
+  {
+    path: "/write",
+    name: "BoardWrite",
+    component: () =>
+      import("@/views/board/WriteView.vue"),
+  },
+  {
+    path: "/detail",
+    name: "BoardDetail",
+    component: () =>
+      import("@/views/board/DetailView.vue"),
+  },
+  {
+    path: "/edit",
+    name: "BoardEdit",
+    component: () =>
+      import("@/views/board/EditView.vue"),
   },
 ];
 

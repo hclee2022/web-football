@@ -4,19 +4,24 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --watch",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "@toast-ui/editor": "^3.2.0",
     "axios": "^0.27.2",
+    "codemirror": "^6.0.1",
+    "codemirror-editor-vue3": "^2.1.7",
     "core-js": "^3.8.3",
     "pinia": "^2.0.22",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vue3-easy-data-table": "^1.4.19",
     "vuetify": "^3.0.0-beta.0",
+    "vuetify-dialog": "^2.0.17",
     "vuex": "^4.0.0",
     "webfontloader": "^1.0.0"
   },

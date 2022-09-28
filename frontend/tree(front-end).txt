@@ -1,0 +1,54 @@
+¦¢  .browserslistrc
+¦¢  .eslintrc.js
+¦¢  babel.config.js
+¦¢  jsconfig.json
+¦¢  package.json
+¦¢  vue.config.js
+¦¢           
+¦¦¦¡src
+    ¦¢  App.vue
+    ¦¢  main.js
+    ¦¢  registerServiceWorker.js
+    ¦¢  
+    ¦§¦¡api
+    ¦¢      index.js
+    ¦¢      
+    ¦§¦¡components
+    ¦¢  ¦¢  
+    ¦¢  ¦§¦¡board
+    ¦¢  ¦¢      BoardDetail.vue
+    ¦¢  ¦¢      BoardList.vue
+    ¦¢  ¦¢      BoardWrite.vue
+    ¦¢  ¦¢      
+    ¦¢  ¦¦¦¡common
+    ¦¢          AppHeader.vue
+    ¦¢          Button.vue
+    ¦¢          Clock.vue
+    ¦¢          Editor.vue
+    ¦¢          Snackbar.vue
+    ¦¢          Tooltip.vue
+    ¦¢          Viewer.vue
+    ¦¢          Weather.vue
+    ¦¢          
+    ¦§¦¡mixins
+    ¦¢      btnMixins.js
+    ¦¢      
+    ¦§¦¡plugins
+    ¦¢      page.js
+    ¦¢      vuetify.js
+    ¦¢      
+    ¦§¦¡router
+    ¦¢      index.js
+    ¦¢      
+    ¦§¦¡store
+    ¦¢      index.js
+    ¦¢      
+    ¦¦¦¡views
+        ¦¢  
+        ¦§¦¡board
+        ¦¢      DetailView.vue
+        ¦¢      ListView.vue
+        ¦¢      WriteView.vue
+        ¦¢      
+        ¦¦¦¡error
+                404.vue

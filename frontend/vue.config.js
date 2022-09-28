@@ -9,4 +9,8 @@ module.exports = defineConfig({
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
     },
   },
+  devServer: {
+    proxy: "http://localhost:8090",
+    historyApiFallback: true,
+  },
 });

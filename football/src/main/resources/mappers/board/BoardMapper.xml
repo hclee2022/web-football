@@ -17,7 +17,7 @@
     <select id="selectBoardList" resultMap="boardResult" parameterType="com.gisoun.football.board.domain.BoardVO">
         SELECT A.DOC_NO, A.TITLE, A.CONTENT, A.WRITER, A.REG_DTTM, A.VIEW, A.REPLY
         FROM (
-            SELECT A.*, (@ROWNUM := @ROWNUM + 1) AS ROWNUM
+            SELECT A.*
             FROM (
                 SELECT A.DOC_NO, A.TITLE, A.CONTENT, A.WRITER, A.REG_DTTM, A.VIEW, (
                     SELECT COUNT(*)
@@ -44,9 +44,8 @@
                 <foreach collection="sort" item="sort" index="index" separator=",">
                     ${sort}
                 </foreach>
-            ) A, (SELECT @ROWNUM := 0) TEMP
+            ) A
         ) A
-        WHERE ROWNUM BETWEEN #{startNo} AND #{endNo}
     </select>
 
     <select id="selectBoardListCount" resultType="int" parameterType="com.gisoun.football.board.domain.BoardVO">
@@ -58,7 +57,7 @@
                     <when test="schType == 'docNo'">
                         AND DOC_NO = #{schVal}
                     </when>
-                    <when test="schType == 'title">
+                    <when test="schType == 'title'">
                         AND TITLE LIKE CONCAT('%', #{schVal}, '%')
                     </when>
                     <when test="schType == 'writer'">
@@ -67,6 +66,15 @@
                 </choose>
             </if>
         </where>
+    </select>
+
+    <select id="selectBoardDetail" resultMap="boardResult" parameterType="com.gisoun.football.board.domain.BoardVO">
+        SELECT A.DOC_NO, A.TITLE, A.CONTENT, A.WRITER, A.REG_DTTM, A.VIEW,
+            (
+                SELECT COUNT(*) FROM TB_REPLY X WHERE X.DOC_NO = A.DOC_NO
+            ) AS REPLY
+        FROM TB_BOARD A
+        WHERE A.DOC_NO = #{docNo}
     </select>
 
     <insert id="insertBoard" parameterType="com.gisoun.football.board.domain.BoardVO">
@@ -95,7 +103,7 @@
         WHERE DOC_NO = #{docNo}
     </update>
 
-    <resultMap id="replyResult" type="com.gisoun.football.board.domain.BoardVO">
+    <resultMap id="replyResult" type="com.gisoun.football.board.domain.ReplyVO">
         <result column="REPLY_NO" property="replyNo" jdbcType="INTEGER"/>
         <result column="DOC_NO"   property="docNo"   jdbcType="INTEGER"/>
         <result column="WRITER"   property="writer"  jdbcType="VARCHAR"/>
