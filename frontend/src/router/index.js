@@ -9,7 +9,6 @@ const routes = [
     redirect: "/home",
   },
   {
-    // path: "*",
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () =>
@@ -43,6 +42,12 @@ const routes = [
     name: "BoardEdit",
     component: () =>
       import("@/views/board/EditView.vue"),
+  },
+  {
+    path: "/competition",
+    name: "GridEngPremier",
+    component: () =>
+      import("@/views/competition/england/EngPremierView.vue"),
   },
 ];
 

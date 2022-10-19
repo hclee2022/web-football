@@ -183,6 +183,8 @@ export default {
             setTimeout(() => {
               me.loading = false;
               this.document = items;
+              console.log("document : ");
+              console.log(this.document);
               this.totalCount = total;
             }, 1000);
           },

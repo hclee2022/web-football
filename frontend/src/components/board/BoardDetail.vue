@@ -72,7 +72,7 @@
                       iconName="mdi-pencil" >
                     </Button>
                   </template>
-                  <v-card>
+                  <v-card elevation="10" outlined width="50%" class="mx-auto">
                     <v-card-title>
                       <span class="text-h5">
                         Edit Reply

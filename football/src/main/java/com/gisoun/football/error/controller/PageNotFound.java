@@ -16,8 +16,8 @@ public class PageNotFound implements ErrorController {
     }
     
     public String getErrorPath() {
-        // return null;
-        return "/error";
+        // return ERROR_PATH;
+        return null;
     }
 
 }
