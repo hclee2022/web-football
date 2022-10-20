@@ -26,18 +26,6 @@
                 </div>
               </template>
 
-              <!-- <template v-slot:items="props">
-                <td>{{ props.item.rank }}</td>
-                <td>{{ props.item.name }}</td>
-                <td>{{ props.item.played }}</td>
-                <td>{{ props.item.win }}</td>
-                <td>{{ props.item.draw }}</td>
-                <td>{{ props.item.lose }}</td>
-                <td>{{ props.item.for }}</td>
-                <td>{{ props.item.against }}</td>
-                <td>{{ props.item.goalsDiff }}</td>
-                <td>{{ props.item.points }}</td>
-              </template> -->
             </EasyDataTable>
           </v-col>
         </v-row>
