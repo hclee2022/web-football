@@ -42,7 +42,7 @@
               :key="i"
               :title="submenu.title"
               :value="submenu"
-              @click="movePage(submenu.to)">
+              @click="clickCompetition(submenu.to, submenu.params)">
             </v-list-item>
           </v-list-group>
           
@@ -62,7 +62,13 @@ export default {
 
   }),
   methods: {
-
+    clickCompetition(to, params) {
+      this.$router.push({
+        name: "Competitions",
+        params: params,
+      });
+      this.movePage(to + "/" + params.id  + "/" + params.sesson);
+    },
   },
 }
 </script>

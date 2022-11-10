@@ -22,7 +22,7 @@ export default {
          * Move Previous Page
          * 
          */
-         const prevPage = () => {
+        const prevPage = () => {
             window.history.length > 1 ? router.go(-1) : router.push("/")
         }
         app.config.globalProperties.prevPage = prevPage;
@@ -31,7 +31,7 @@ export default {
          * Refresh the page
          * 
          */
-         const refresh = () => {
+        const refresh = () => {
             router.go(router.currentRoute);
         }
         app.config.globalProperties.refresh = refresh;

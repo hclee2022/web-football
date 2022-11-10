@@ -71,7 +71,9 @@
     <select id="selectBoardDetail" resultMap="boardResult" parameterType="com.gisoun.football.board.domain.BoardVO">
         SELECT A.DOC_NO, A.TITLE, A.CONTENT, A.WRITER, A.REG_DTTM, A.VIEW,
             (
-                SELECT COUNT(*) FROM TB_REPLY X WHERE X.DOC_NO = A.DOC_NO
+                SELECT COUNT(*)
+                FROM TB_REPLY X
+                WHERE X.DOC_NO = A.DOC_NO
             ) AS REPLY
         FROM TB_BOARD A
         WHERE A.DOC_NO = #{docNo}

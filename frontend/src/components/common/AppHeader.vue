@@ -23,6 +23,7 @@
 import Clock from "@/components/common/Clock"
 import Weather from "@/components/common/Weather"
 import DropdownMenu from "@/components/common/DropdownMenu";
+import { leagueStore } from "@/store/leagueStore";
 
 export default {
   name: "AppHeader",
@@ -40,15 +41,36 @@ export default {
         submenu: [
           {
             title: "England",
-            to: "/competition",
-          }
+            to: "/competitions",
+            params: {
+              "id": leagueStore().$state.leagueId.EPL,
+              "sesson": leagueStore().$state.sesson.S22,
+            },
+          },
+          {
+            title: "Spain",
+            to: "/competitions",
+            params: {
+              "id": leagueStore().$state.leagueId.La_Liga,
+              "sesson": leagueStore().$state.sesson.S22,
+            },
+          },
         ],
       },
       {
         title: "Leagues Asia",
         to: "/list",
-        isGroup: false,
-        submenu: [[]],
+        isGroup: true,
+        submenu: [
+          {
+            title: "South Korea",
+            to: "/competitions",
+            params: {
+              "id": leagueStore().$state.leagueId.K1,
+              "sesson": leagueStore().$state.sesson.S22,
+            },
+          }
+        ],
       },
     ],
     menuListTransfers: [

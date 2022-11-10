@@ -177,6 +177,7 @@ export default {
 
         let items = this.getBoardDataFromAPI(sort).then(
           response => {
+            console.log(response);
             items = response.data;
             const total = response.total;
 

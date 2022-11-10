@@ -18,6 +18,8 @@ import page from "@/plugins/page";
 
 import Button from "@/components/common/Button";
 
+import { SetupCalendar } from "v-calendar";
+
 const app = createApp(App);
 
 loadFonts();
@@ -29,6 +31,7 @@ app
   .use(createPinia())
   .use(page)
   .use(GlobalCmComponent)
+  .use(SetupCalendar, {})
   .component("Button", Button)
   .component("EasyDataTable", Vue3EasyDataTable)
   .mount("#app");
