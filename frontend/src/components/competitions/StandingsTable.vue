@@ -29,10 +29,6 @@
 import { getCompetitionAPI } from "@/api/competitions";
 
 export default {
-  components: {
-    // eslint-disable-next-line vue/no-unused-components
-    EasyDataTable: window["vue3-easy-data-table"],
-  },
   data: () => ({
     loading: false,
     headers: [
@@ -76,6 +72,7 @@ export default {
       })
     },
     async getCompetitionFromAPI() {
+      console.log(this.$route.params);
       return getCompetitionAPI({
         params: this.$route.params,
       })

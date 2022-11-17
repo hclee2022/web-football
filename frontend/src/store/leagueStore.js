@@ -13,5 +13,21 @@ export const leagueStore = defineStore("leagueStore", {
     teamsObj: {
       teamInfo: {},
     },
+    leagueIdList: 
+      {
+        GB: {
+          England:
+          {
+            0: [39],
+            1: [40],
+            2: [41],
+            3: [42],
+            4: [43],
+            5: [50, 51],
+            6: [58, 59, 60, 931],
+          }
+        },
+      }
+    
   })
 })

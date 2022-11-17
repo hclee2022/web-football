@@ -81,10 +81,6 @@
 import { getBoardListAPI } from "@/api/index";
 
 export default {
-  components: {
-    // eslint-disable-next-line vue/no-unused-components
-    EasyDataTable: window["vue3-easy-data-table"],
-  },
   data() {
     return {
       headers: [

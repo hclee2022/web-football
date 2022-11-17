@@ -12,7 +12,16 @@ function getFixturesAPI(params) {
     return instance.get("/competitions/fixtures", params);
 }
 
+function getHistoryAPI(params) {
+    return instance.get("/competitions/history", params);
+}
+function getSquadsAPI(params) {
+    return instance.get("/competitions/squads", params);
+}
+
 export {
     getStandingsAPI,
     getFixturesAPI,
+    getHistoryAPI,
+    getSquadsAPI,
 }
