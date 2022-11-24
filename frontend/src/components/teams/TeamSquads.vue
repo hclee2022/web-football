@@ -1,6 +1,10 @@
 <template>
   <v-card class="pa-3" outlined>
-    <h2 class="text-center">스쿼드</h2>
+    <v-card-title class="text-center">
+      <b>
+        스쿼드
+      </b>
+    </v-card-title>
     <br>
     <div v-for="(posItem, posIdx) in positionList" :key="posIdx">
       <v-card class="pa-3">

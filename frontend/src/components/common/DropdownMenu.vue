@@ -8,7 +8,7 @@
         <v-btn
           v-bind="props">
 
-          {{ menuTitle }}
+          <b>{{ menuTitle }}</b>
         </v-btn>
       </template>
       

@@ -44,14 +44,14 @@ const routes = [
       import("@/views/board/EditView.vue"),
   },
   {
-    path: "/competitions/:id/:sesson",
+    path: "/competitions/:country/:id/:sesson",
     name: "Competitions",
     component: () =>
       import("@/views/competitions/CompetitionsView.vue"),
     props: true,
   },
   {
-    path: "/teams/:leagueId/:teamId",
+    path: "/teams/:country/:leagueId/:teamId",
     name: "Team",
     component: () =>
       import("@/views/teams/TeamView.vue"),

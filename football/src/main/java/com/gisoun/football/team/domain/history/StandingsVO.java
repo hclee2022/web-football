@@ -1,4 +1,4 @@
-package com.gisoun.football.competition.domain.history;
+package com.gisoun.football.team.domain.history;
 
 public class StandingsVO {
 
@@ -15,20 +15,20 @@ public class StandingsVO {
         this.rank = rank;
     }
 
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
     public TeamVO getTeam() {
         return team;
     }
 
     public void setTeam(TeamVO team) {
         this.team = team;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public AllVO getAll() {
@@ -38,4 +38,5 @@ public class StandingsVO {
     public void setAll(AllVO all) {
         this.all = all;
     }
+
 }

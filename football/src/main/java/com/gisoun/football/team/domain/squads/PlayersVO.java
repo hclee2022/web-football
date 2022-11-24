@@ -1,4 +1,4 @@
-package com.gisoun.football.competition.domain.squads;
+package com.gisoun.football.team.domain.squads;
 
 public class PlayersVO {
 

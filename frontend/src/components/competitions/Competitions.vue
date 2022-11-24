@@ -30,7 +30,7 @@
           <v-card-text>
             <v-row>
               <v-col>
-                <StandingsTable
+                <CompetitionStandings
                   @nameFromStandings="setLeagueName"
                   @logoFromStandings="setLeagueLogo" />
               </v-col>
@@ -46,12 +46,14 @@
 </template>
 
 <script>
-import StandingsTable from "@/components/competitions/StandingsTable";
+// import { leagueStore } from "@/store/leagueStore";
+
+import CompetitionStandings from "@/components/competitions/CompetitionStandings";
 import CompetitionFixtures from "@/components/competitions/CompetitionFixtures";
 
 export default {
   components: {
-    StandingsTable,
+    CompetitionStandings,
     CompetitionFixtures,
   },
   data: () => ({
@@ -61,6 +63,9 @@ export default {
     leagueName: String,
     leagueLogo: String,
   }),
+  mounted() {
+    
+  },
   methods: {
     setLeagueName(name) {
       this.leagueName = name;

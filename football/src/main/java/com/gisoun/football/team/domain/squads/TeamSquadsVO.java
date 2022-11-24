@@ -1,9 +1,9 @@
-package com.gisoun.football.competition.domain.squads;
+package com.gisoun.football.team.domain.squads;
 
 import java.util.List;
 
-public class SquadsVO {
-    
+public class TeamSquadsVO {
+
     private List<ResponseVO> response;
 
     public List<ResponseVO> getResponse() {

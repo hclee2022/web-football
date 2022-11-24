@@ -1,10 +1,19 @@
-package com.gisoun.football.competition.domain.history;
+package com.gisoun.football.team.domain.standings;
 
 public class AllVO {
 
+    private int played;
     private int win;
     private int draw;
     private int lose;
+
+    public int getPlayed() {
+        return played;
+    }
+
+    public void setPlayed(int played) {
+        this.played = played;
+    }
 
     public int getWin() {
         return win;

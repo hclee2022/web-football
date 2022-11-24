@@ -1,9 +1,9 @@
-package com.gisoun.football.competition.domain.history;
+package com.gisoun.football.common.domain.countries;
 
 import java.util.List;
 
-public class TeamHistoryVO {
-
+public class CountriesVO {
+    
     private List<ResponseVO> response;
 
     public List<ResponseVO> getResponse() {

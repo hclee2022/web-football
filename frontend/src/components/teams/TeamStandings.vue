@@ -28,7 +28,11 @@
 </template>
 
 <script>
-import { leagueStore } from "@/store/leagueStore";
+// dayjs Library
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
+
 import { getStandingsAPI } from "@/api/teams";
 
 export default {
@@ -80,7 +84,7 @@ export default {
       return getStandingsAPI({
         params: {
           id: this.$route.params.leagueId,
-          sesson: leagueStore().$state.sesson.S22,
+          sesson: dayjs().format("YYYY"),
         },
       })
         .then(response => {

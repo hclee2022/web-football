@@ -77,7 +77,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
 
-import { leagueStore } from "@/store/leagueStore";
+// import { leagueStore } from "@/store/leagueStore";
 import { getFixturesAPI } from "@/api/teams";
 
 export default {
@@ -132,7 +132,7 @@ export default {
       return getFixturesAPI({
         params: {
           id: this.$route.params.leagueId,
-          sesson: leagueStore().$state.sesson.S22,
+          sesson: dayjs().format("YYYY"),
         },
       })
         .then(response => {

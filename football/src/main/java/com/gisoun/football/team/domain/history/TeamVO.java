@@ -1,4 +1,4 @@
-package com.gisoun.football.competition.domain.history;
+package com.gisoun.football.team.domain.history;
 
 public class TeamVO {
     

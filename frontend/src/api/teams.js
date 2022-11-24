@@ -5,18 +5,19 @@ const instance = axios.create({
 });
 
 function getStandingsAPI(params) {
-    return instance.get("/competitions/standings", params);
+    return instance.get("/teams/standings", params);
 }
 
 function getFixturesAPI(params) {
-    return instance.get("/competitions/fixtures", params);
+    return instance.get("/teams/fixtures", params);
 }
 
 function getHistoryAPI(params) {
-    return instance.get("/competitions/history", params);
+    return instance.get("/teams/history", params);
 }
+
 function getSquadsAPI(params) {
-    return instance.get("/competitions/squads", params);
+    return instance.get("/teams/squads", params);
 }
 
 export {

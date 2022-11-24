@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getCompetitionAPI } from "@/api/competitions";
+import { getStandingsAPI } from "@/api/competitions";
 
 export default {
   data: () => ({
@@ -45,21 +45,19 @@ export default {
       { text: "최근 5경기", value: "form" },
     ],
     standingsList: [],
-    leagueId: Number,
   }),
   mounted() {
-    this.getCompetition();
+    this.getStandings();
   },
   methods: {
-    getCompetition() {
+    getStandings() {
       this.loading = true;
 
       // eslint-disable-next-line no-unused-vars
       return new Promise((resolve, reject) => {
-        let items = this.getCompetitionFromAPI().then(
+        let items = this.getStandingsFromAPI().then(
           response => {
             items = response.standings;
-            this.leagueId = response.id;
             this.$emit("logoFromStandings", response.logo);
             this.$emit("nameFromStandings", response.name);
 
@@ -71,9 +69,9 @@ export default {
         )
       })
     },
-    async getCompetitionFromAPI() {
+    async getStandingsFromAPI() {
       console.log(this.$route.params);
-      return getCompetitionAPI({
+      return getStandingsAPI({
         params: this.$route.params,
       })
         .then(response => {
@@ -87,11 +85,12 @@ export default {
       this.$router.push({
         name: "Team",
         params: {
+          country: this.$route.params.country,
           teamId: data.team.id,
-          leagueId: this.leagueId,
+          leagueId: this.$route.params.id,
         },
       });
-      this.movePage("/teams" + "/" + this.leagueId + "/" + data.team.id);
+      this.movePage("/teams" + "/" + this.$route.params.country + "/" + this.$route.params.id + "/" + data.team.id);
     },
   },
 }

@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { getFixturesAPI } from "@/api/fixtures";
+import { getFixturesAPI } from "@/api/competitions";
 
 // dayjs Library
 import dayjs from "dayjs";

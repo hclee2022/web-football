@@ -8,8 +8,12 @@
 </template>
 
 <script>
-import { leagueStore } from "@/store/leagueStore";
 import { getHistoryAPI } from "@/api/teams";
+
+// dayjs Library
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
 
 // chart.js + vue-chartjs
 import { Line } from "vue-chartjs";
@@ -88,6 +92,8 @@ export default {
         let items = this.getHistoryFromAPI().then(
           response => {
             items = response;
+            console.log("history Items");
+            console.log(items);
 
             setTimeout(() => {
               this.historyLabels = Object.keys(items).map((v) => {
@@ -95,15 +101,16 @@ export default {
               });
 
               this.historyData = Object.values(items).map((v) => {
-                return v.rank;
+                return v.standings[0][0].rank;
               });
 
               this.historyDataLabels = Object.values(items).map((v) => {
                 return {
-                  "win": v.all.win,
-                  "draw": v.all.draw,
-                  "lose": v.all.lose,
-                  "points": v.points,
+                  "leagueName": v.name,
+                  "win": v.standings[0][0].all.win,
+                  "draw": v.standings[0][0].all.draw,
+                  "lose": v.standings[0][0].all.lose,
+                  "points": v.standings[0][0].points,
                 };
               });
             }, 1000);
@@ -114,8 +121,7 @@ export default {
     async getHistoryFromAPI() {
       return getHistoryAPI({
         params: {
-          leagueId: this.$route.params.leagueId,
-          sesson: leagueStore().$state.sesson.S22,
+          sesson: dayjs().format("YYYY"),
           teamId: this.$route.params.teamId,
         },
       })
@@ -191,7 +197,10 @@ export default {
             callbacks: {
               footer: (v) => {
                 let data = this.historyDataLabels[v[0].dataIndex];
-                return "승 : " + data.win + "\n" +
+                console.log("data : ");
+                console.log(data);
+                return data.leagueName + "\n" +
+                  "승 : " + data.win + "\n" +
                   "무 : " + data.draw + "\n" +
                   "패 : " + data.lose + "\n" +
                   "승점 : " + data.points
