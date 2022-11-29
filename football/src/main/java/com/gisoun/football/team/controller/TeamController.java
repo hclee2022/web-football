@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gisoun.football.team.domain.history.TeamHistoryVO;
 import com.gisoun.football.team.domain.squads.TeamSquadsVO;
 import com.gisoun.football.team.domain.squads.PlayersVO;
+import com.gisoun.football.common.domain.leagues.CommonLeaguesVO;
 import com.gisoun.football.team.domain.fixtures.ResponseVO;
 import com.gisoun.football.team.domain.fixtures.TeamFixturesVO;
 import com.gisoun.football.team.domain.standings.LeagueVO;
@@ -133,9 +134,11 @@ public class TeamController {
 
         // Get Params From Front-End
         int sessonVal = Integer.parseInt(request.getParameter("sesson"));
+        String countryVal = request.getParameter("country");
         int teamIdVal = Integer.parseInt(request.getParameter("teamId"));
 
-        String jsonPath = "/json/teams/standings/" + teamIdVal + "/";;
+        String jsonPath = "/json/teams/standings/" + teamIdVal + "/";
+        ;
         String jsonFile;
 
         File file;
@@ -148,10 +151,12 @@ public class TeamController {
         // Define HashMap
         HashMap<String, Object> map = new HashMap<String, Object>();
 
+        // League Index
+        Integer leagueIdx = null;
+
         while (true) {
             // Json File Path & Name
             jsonFile = "Standings" + "_" + teamIdVal + "_" + sessonVal + ".json";
-            System.out.println(jsonFile);
 
             // Read JSON File
             cpr = new ClassPathResource(jsonPath + jsonFile);
@@ -161,7 +166,17 @@ public class TeamController {
                 file = cpr.getFile();
 
                 TeamHistoryVO teamHistoryVO = om.readValue(file, TeamHistoryVO.class);
-                com.gisoun.football.team.domain.history.LeagueVO leagueVO = teamHistoryVO.getResponse().get(0)
+                for (int i = 0; i < teamHistoryVO.getResponse().size(); i++) {
+                    if (teamHistoryVO.getResponse().get(i).getLeague().getCountry().equals(countryVal)) {
+                        leagueIdx = i;
+                    }
+                }
+
+                if (leagueIdx == null) {
+                    break;
+                }
+
+                com.gisoun.football.team.domain.history.LeagueVO leagueVO = teamHistoryVO.getResponse().get(leagueIdx)
                         .getLeague();
 
                 // map.put(Integer.toString(sessonVal), leagueVO.getStandings()[0].get(0));
@@ -174,6 +189,49 @@ public class TeamController {
         }
 
         return map;
+    }
+    
+    @GetMapping(value = "/history/chart/logo")
+    public String historyChartLeagueLogo(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        
+        int leagueIdVal = Integer.parseInt(request.getParameter("id"));
+
+        // Json File Path & Name
+        String jsonPath = "/json/common/";
+        String jsonFile = "Leagues" + ".json";
+
+        // Read JSON File
+        Resource cpr = new ClassPathResource(jsonPath + jsonFile);
+        File file = cpr.getFile();
+
+        // Create ObjectMapper
+        ObjectMapper om = new ObjectMapper();
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        // Get Data
+        CommonLeaguesVO commonLeaguesVO = om.readValue(file, CommonLeaguesVO.class);
+        List<com.gisoun.football.common.domain.leagues.ResponseVO> list = commonLeaguesVO.getResponse();
+
+        String result;
+        while (true) {
+            // Find Index of Null (World)
+            int index = IntStream.range(0, commonLeaguesVO.getResponse().size())
+                    .filter(i -> Objects.equals(commonLeaguesVO.getResponse().get(i).getLeague().getId(), leagueIdVal))
+                    .findFirst()
+                    .orElse(-1);
+
+            if (index == -1) {
+                result = null;
+                break;
+            } else {
+                result = commonLeaguesVO.getResponse().get(index).getLeague().getLogo();
+                break;
+            }
+        }
+        System.out.println(result);
+
+        return result;
     }
     
     @GetMapping(value = "/squads")

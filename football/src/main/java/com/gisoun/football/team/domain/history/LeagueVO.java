@@ -6,6 +6,7 @@ public class LeagueVO {
 
     private int id;
     private String name;
+    private String country;
     private int season;
     private List<StandingsVO>[] standings;
 
@@ -23,6 +24,14 @@ public class LeagueVO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public int getSeason() {

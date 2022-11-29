@@ -16,6 +16,10 @@ function getHistoryAPI(params) {
     return instance.get("/teams/history", params);
 }
 
+function getHistoryChartLeagueLogoAPI(params) {
+    return instance.get("/teams/history/chart/logo", params);
+}
+
 function getSquadsAPI(params) {
     return instance.get("/teams/squads", params);
 }
@@ -25,4 +29,5 @@ export {
     getFixturesAPI,
     getHistoryAPI,
     getSquadsAPI,
+    getHistoryChartLeagueLogoAPI,
 }
