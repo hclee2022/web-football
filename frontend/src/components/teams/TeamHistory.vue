@@ -28,7 +28,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import { leagueStore } from "@/store/leagueStore";
 
 // eslint-disable-next-line no-unused-vars
@@ -134,12 +133,9 @@ export default {
   components: {
     Line,
   },
-  props: {
-    leagueSize: Number,
-  },
   data: () => ({
     historyLabels: [],
-    historyData: [],
+    historyRankList: [],
     historyDataLabels: [],
     historyDivision: [],
     chartRankList: [],
@@ -157,6 +153,8 @@ export default {
       "rgba(243, 98, 195, 0.2)", // Pink
     ],
     divisionLogoList: [],
+    leagueSizeList: [],
+    chartSize: null,
   }),
   mounted() {
     this.getHistory();
@@ -168,13 +166,15 @@ export default {
           response => {
             items = response;
             leagueStore().setCurLeague(this.$route.params.country);
+            console.log("items : ");
+            console.log(items);
 
             setTimeout(() => {
               this.historyLabels = Object.keys(items).map((v) => {
                 return v.substring(2) + "/" + (parseInt(v.substring(2)) + 1).toString()
               });
 
-              this.historyData = Object.values(items).map((v) => {
+              this.historyRankList = Object.values(items).map((v) => {
                 return v.standings[0][0].rank;
               });
 
@@ -188,24 +188,36 @@ export default {
                 };
               });
 
+              // 역대 소속되었던 리그ID 리스트
               this.historyDivision = Object.values(items).map((v) => {
                 return v.id
               });
 
+              // 역대 소속되었던 리그ID 리스트 (중복제거)
               let divisionIdList = [...new Set(this.historyDivision)];
 
-              let rankUpdate = [];
-              let divisionList = [];
+              this.leagueSizeList = Object.values(items).map((v) => {
+                return v.size
+              });
+              this.chartSize = [...new Set(this.leagueSizeList)].reduce((acc, cur) => acc + cur) + [...new Set(this.leagueSizeList)].length;
+              console.log("reduce : ");
+              console.log([...new Set(this.leagueSizeList)].reduce((acc, cur) => acc + cur) + [...new Set(this.leagueSizeList)].length);
+
+              let rankUpdate = []; // 상위/하부 리그에 따라 차트 데이터 실제값 변화
+              let divisionList = []; // 역대 소속되었던 리그 인덱스(leagueStore)
               for (var i = 0; i < this.historyDivision.length; i++) {
                 for (var j = 0; j < leagueStore().getLeaguesOfCountry.length; j++) {
                   for (var k = 0; k < leagueStore().getLeaguesOfCountry[j].length; k++) {
                     if (this.historyDivision[i] == leagueStore().getLeaguesOfCountry[j][k]) {
-                      rankUpdate.push((this.historyData[i] + (j * 20)) / 2);
+                      // rankUpdate.push((this.historyRankList[i] + (j * 20)) / 2);
+                      rankUpdate.push((this.historyRankList[i] + (j * this.leagueSizeList[i])) / 2);
                       divisionList.push(j);
                     }
                   }
                 }
               }
+              console.log("rankUpdate : ");
+              console.log(rankUpdate);
               this.chartRankList = rankUpdate;
               rankUpdate = [];
 
@@ -228,13 +240,9 @@ export default {
                   for (k = 0; k < divisionIdList.length; k++) {
                     if (leagueStore().getLeaguesOfCountry[sortedDivisionList[i]].includes(divisionIdList[k])) {
                       divisionIdx = leagueStore().getLeaguesOfCountry[sortedDivisionList[i]].indexOf(divisionIdList[k]);
-                      console.log("divisionIdx : " + leagueStore().getLeaguesOfCountry[sortedDivisionList[i]][divisionIdx]);
                     }
                   }
-
                   this.getHistoryChartLeagueLogo(sortedDivisionList[i], divisionIdx);
-                  console.log("this.divisionLogoList[i] : ");
-                  console.log(this.divisionLogoList[i]);
 
                   for (j = 0; j < divisionList.length; j++) {
                     if (sortedDivisionList[i] == divisionList[j]) {
@@ -250,10 +258,17 @@ export default {
                           Object.values(this.chartBGColorObj[i])[0].max = this.chartRankList[j];
                         }
                       }
-                    } 
+                    }
+                  }
+
+                  if (Object.values(this.chartBGColorObj[i])[0].min == Object.values(this.chartBGColorObj[i])[0].max) {
+                    Object.values(this.chartBGColorObj[i])[0].max += 1;
                   }
                 }
-                Object.values(this.chartBGColorObj[0])[0].min = 0;
+
+                if (Object.values(this.chartBGColorObj[0])[0].min != 0) {
+                  Object.values(this.chartBGColorObj[0])[0].min = 0;
+                }
               } else {
                 this.chartBGColorObj[0] = {
                   0: {
@@ -261,6 +276,12 @@ export default {
                     max: 0,
                   }
                 }
+
+                let divisionIdx;
+                if (leagueStore().getLeaguesOfCountry[divisionList[0]].includes(divisionIdList[0])) {
+                  divisionIdx = leagueStore().getLeaguesOfCountry[divisionList[0]].indexOf(divisionIdList[0]);
+                }
+                this.getHistoryChartLeagueLogo(divisionList[0], divisionIdx);
                   
                 for (i = 0; i < divisionList.length; i++) {
                   if (Object.values(this.chartBGColorObj[0])[0].min == 0) {
@@ -286,7 +307,7 @@ export default {
     async getHistoryFromAPI() {
       return getHistoryAPI({
         params: {
-          sesson: dayjs().format("YYYY"),
+          season: dayjs().format("YYYY"),
           country: this.$route.params.country,
           teamId: this.$route.params.teamId,
         },
@@ -314,8 +335,6 @@ export default {
         },
       })
         .then(res => {
-          console.log("res : ");
-          console.log(res.data);
           return res.data;
         })
         .catch(e => {
@@ -328,7 +347,7 @@ export default {
         datasets: [
           {
             label: "순위",
-            // data: this.historyData,
+            // data: this.historyRankList,
             data: this.chartRankList,
             fill: false,
             tension: 0.1,
@@ -363,7 +382,8 @@ export default {
             },
             min: -2,
             // max: this.leagueSize + 3,
-            max: [...new Set(this.historyDivision)].length * 10 + 3,
+            // max: [...new Set(this.historyDivision)].length * 10 + 3,
+            max: this.chartSize,
             ticks: {
               stepSize: 1,
             },
@@ -386,14 +406,14 @@ export default {
               weight: "bold",
             },
             formatter: (value, context) => {
-              return this.historyData[context.dataIndex];
+              return this.historyRankList[context.dataIndex];
             }
           },
           tooltip: {
             displayColors: false,
             callbacks: {
               label: (context) => {
-                return this.historyData[context.dataIndex] + "위";
+                return this.historyRankList[context.dataIndex] + "위";
               },
               footer: (v) => {
                 let data = this.historyDataLabels[v[0].dataIndex];

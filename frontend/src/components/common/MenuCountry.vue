@@ -154,7 +154,7 @@ export default {
         params: {
           country: country,
           id: id,
-          sesson: season,
+          season: season,
         },
       });
       this.movePage(to + "/" + country + "/" + id  + "/" + season);

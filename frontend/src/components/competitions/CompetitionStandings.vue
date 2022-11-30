@@ -2,7 +2,7 @@
   <EasyDataTable
     :headers="headers"
     :items="standingsList"
-    :rows-per-page="20"
+    :rows-per-page="50"
     :loading="loading"
     hide-rows-per-page
     hide-footer>

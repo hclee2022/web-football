@@ -84,7 +84,7 @@ export default {
       return getStandingsAPI({
         params: {
           id: this.$route.params.leagueId,
-          sesson: dayjs().format("YYYY"),
+          season: dayjs().format("YYYY"),
         },
       })
         .then(response => {

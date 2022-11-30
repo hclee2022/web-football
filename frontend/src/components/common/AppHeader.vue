@@ -49,7 +49,7 @@ export default {
     //         to: "/competitions",
     //         params: {
     //           "id": leagueStore().$state.leagueId.EPL,
-    //           "sesson": leagueStore().$state.sesson.S22,
+    //           "season": leagueStore().$state.season.S22,
     //         },
     //       },
     //       {
@@ -57,7 +57,7 @@ export default {
     //         to: "/competitions",
     //         params: {
     //           "id": leagueStore().$state.leagueId.La_Liga,
-    //           "sesson": leagueStore().$state.sesson.S22,
+    //           "season": leagueStore().$state.season.S22,
     //         },
     //       },
     //     ],
@@ -72,7 +72,7 @@ export default {
     //         to: "/competitions",
     //         params: {
     //           "id": leagueStore().$state.leagueId.K1,
-    //           "sesson": leagueStore().$state.sesson.S22,
+    //           "season": leagueStore().$state.season.S22,
     //         },
     //       }
     //     ],

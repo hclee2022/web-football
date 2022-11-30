@@ -9,6 +9,7 @@ public class LeagueVO {
     private String country;
     private int season;
     private List<StandingsVO>[] standings;
+    private int size;
 
     public int getId() {
         return id;
@@ -48,6 +49,14 @@ public class LeagueVO {
 
     public void setStandings(List<StandingsVO>[] standings) {
         this.standings = standings;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
 }

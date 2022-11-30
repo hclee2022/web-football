@@ -33,11 +33,11 @@ public class CompetitionController {
             throws Exception {
         // Get Params From Front-End
         int leagueIdVal = Integer.parseInt(request.getParameter("id"));
-        int sessonVal = Integer.parseInt(request.getParameter("sesson"));
+        int seasonVal = Integer.parseInt(request.getParameter("season"));
 
         // Json File Path & Name
         String jsonPath = "/json/competitions/standings/";
-        String jsonFile = "Standings" + "_" + leagueIdVal + "_" + sessonVal + ".json";
+        String jsonFile = "Standings" + "_" + leagueIdVal + "_" + seasonVal + ".json";
 
         // Read JSON File
         Resource cpr = new ClassPathResource(jsonPath + jsonFile);
@@ -56,7 +56,7 @@ public class CompetitionController {
         // Define HashMap
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("id", leagueVO.getId());
-        map.put("sesson", leagueVO.getSeason());
+        map.put("season", leagueVO.getSeason());
         map.put("name", leagueVO.getName());
         map.put("country", leagueVO.getCountry());
         map.put("logo", leagueVO.getLogo());
@@ -72,11 +72,11 @@ public class CompetitionController {
             throws Exception {
         // Get Params From Front-End
         int leagueIdVal = Integer.parseInt(request.getParameter("id"));
-        int sessonVal = Integer.parseInt(request.getParameter("sesson"));
+        int seasonVal = Integer.parseInt(request.getParameter("season"));
 
         // Json File Path & Name
         String jsonPath = "/json/competitions/fixtures/";
-        String jsonFile = "Fixtures" + "_" + leagueIdVal + "_" + sessonVal + ".json";
+        String jsonFile = "Fixtures" + "_" + leagueIdVal + "_" + seasonVal + ".json";
 
         // Read JSON File
         Resource cpr = new ClassPathResource(jsonPath + jsonFile);

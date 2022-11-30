@@ -44,7 +44,7 @@ const routes = [
       import("@/views/board/EditView.vue"),
   },
   {
-    path: "/competitions/:country/:id/:sesson",
+    path: "/competitions/:country/:id/:season",
     name: "Competitions",
     component: () =>
       import("@/views/competitions/CompetitionsView.vue"),

@@ -16,7 +16,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,6 +24,7 @@ import com.gisoun.football.team.domain.history.TeamHistoryVO;
 import com.gisoun.football.team.domain.squads.TeamSquadsVO;
 import com.gisoun.football.team.domain.squads.PlayersVO;
 import com.gisoun.football.common.domain.leagues.CommonLeaguesVO;
+import com.gisoun.football.competition.domain.standings.CompetitionStandingsVO;
 import com.gisoun.football.team.domain.fixtures.ResponseVO;
 import com.gisoun.football.team.domain.fixtures.TeamFixturesVO;
 import com.gisoun.football.team.domain.standings.LeagueVO;
@@ -41,7 +41,7 @@ public class TeamController {
             throws Exception {
         // Get Params From Front-End
         int leagueIdVal = Integer.parseInt(request.getParameter("id"));
-        int sessonVal = Integer.parseInt(request.getParameter("sesson"));
+        int seasonVal = Integer.parseInt(request.getParameter("season"));
 
         // Json File Path & Name
         String jsonPath = "/json/competitions/standings/";
@@ -52,15 +52,15 @@ public class TeamController {
         File file;
 
         while (true) {
-            jsonFile = "Standings" + "_" + leagueIdVal + "_" + sessonVal + ".json";
+            jsonFile = "Standings" + "_" + leagueIdVal + "_" + seasonVal + ".json";
             // Read JSON File
             cpr = new ClassPathResource(jsonPath + jsonFile);
 
-            if (cpr.exists() || sessonVal <= 2009) {
+            if (cpr.exists() || seasonVal <= 2009) {
                 file = cpr.getFile();
                 break;
             } else {
-                sessonVal--;
+                seasonVal--;
             }
         }
 
@@ -77,7 +77,7 @@ public class TeamController {
         // Define HashMap
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("id", leagueVO.getId());
-        map.put("sesson", leagueVO.getSeason());
+        map.put("season", leagueVO.getSeason());
         map.put("name", leagueVO.getName());
         map.put("country", leagueVO.getCountry());
         map.put("logo", leagueVO.getLogo());
@@ -93,7 +93,7 @@ public class TeamController {
             throws Exception {
         // Get Params From Front-End
         int leagueIdVal = Integer.parseInt(request.getParameter("id"));
-        int sessonVal = Integer.parseInt(request.getParameter("sesson"));
+        int seasonVal = Integer.parseInt(request.getParameter("season"));
 
         // Json File Path & Name
         String jsonPath = "/json/competitions/fixtures/";
@@ -103,16 +103,17 @@ public class TeamController {
         Resource cpr;
         File file;
 
+        // Find Season
         while (true) {
-            jsonFile = "Fixtures" + "_" + leagueIdVal + "_" + sessonVal + ".json";
+            jsonFile = "Fixtures" + "_" + leagueIdVal + "_" + seasonVal + ".json";
             // Read JSON File
             cpr = new ClassPathResource(jsonPath + jsonFile);
 
-            if (cpr.exists() || sessonVal <= 2009) {
+            if (cpr.exists() || seasonVal <= 2009) {
                 file = cpr.getFile();
                 break;
             } else {
-                sessonVal--;
+                seasonVal--;
             }
         }
 
@@ -133,16 +134,17 @@ public class TeamController {
             throws Exception {
 
         // Get Params From Front-End
-        int sessonVal = Integer.parseInt(request.getParameter("sesson"));
+        int seasonVal = Integer.parseInt(request.getParameter("season"));
         String countryVal = request.getParameter("country");
         int teamIdVal = Integer.parseInt(request.getParameter("teamId"));
 
         String jsonPath = "/json/teams/standings/" + teamIdVal + "/";
-        ;
         String jsonFile;
 
         File file;
+
         Resource cpr;
+        Resource leagueCpr;
 
         // Create ObjectMapper
         ObjectMapper om = new ObjectMapper();
@@ -156,7 +158,7 @@ public class TeamController {
 
         while (true) {
             // Json File Path & Name
-            jsonFile = "Standings" + "_" + teamIdVal + "_" + sessonVal + ".json";
+            jsonFile = "Standings" + "_" + teamIdVal + "_" + seasonVal + ".json";
 
             // Read JSON File
             cpr = new ClassPathResource(jsonPath + jsonFile);
@@ -179,10 +181,21 @@ public class TeamController {
                 com.gisoun.football.team.domain.history.LeagueVO leagueVO = teamHistoryVO.getResponse().get(leagueIdx)
                         .getLeague();
 
-                // map.put(Integer.toString(sessonVal), leagueVO.getStandings()[0].get(0));
-                map.put(Integer.toString(sessonVal), leagueVO);
+                // Get League Size
+                leagueCpr = new ClassPathResource(
+                    "/json/competitions/standings/" +
+                    "Standings" + "_" +
+                    leagueVO.getId() + "_" +
+                    seasonVal + ".json"
+                );
 
-                sessonVal--;
+                if (!leagueCpr.exists()) break;
+
+                CompetitionStandingsVO competitionStandingsVO = om.readValue(leagueCpr.getFile(), CompetitionStandingsVO.class);
+                leagueVO.setSize(competitionStandingsVO.getResponse().get(0).getLeague().getStandings()[0].size());
+
+                map.put(Integer.toString(seasonVal), leagueVO);
+                seasonVal--;
             } else {
                 break;
             }
@@ -194,7 +207,7 @@ public class TeamController {
     @GetMapping(value = "/history/chart/logo")
     public String historyChartLeagueLogo(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+
         int leagueIdVal = Integer.parseInt(request.getParameter("id"));
 
         // Json File Path & Name
@@ -211,7 +224,6 @@ public class TeamController {
 
         // Get Data
         CommonLeaguesVO commonLeaguesVO = om.readValue(file, CommonLeaguesVO.class);
-        List<com.gisoun.football.common.domain.leagues.ResponseVO> list = commonLeaguesVO.getResponse();
 
         String result;
         while (true) {
@@ -229,7 +241,6 @@ public class TeamController {
                 break;
             }
         }
-        System.out.println(result);
 
         return result;
     }

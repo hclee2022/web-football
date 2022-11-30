@@ -28,6 +28,6 @@ export {
     getStandingsAPI,
     getFixturesAPI,
     getHistoryAPI,
-    getSquadsAPI,
     getHistoryChartLeagueLogoAPI,
+    getSquadsAPI,
 }
