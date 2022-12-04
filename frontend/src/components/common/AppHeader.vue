@@ -11,7 +11,7 @@
       </span>
     </v-btn>
     <MenuCountry menuTitle="대회" />
-    <DropdownMenu menuTitle="이적" :listItems="menuListTransfers" />
+    <!-- <DropdownMenu menuTitle="이적" :listItems="menuListTransfers" /> -->
     <v-spacer></v-spacer>
     <Clock />
 		<v-divider class="mx-4" inset vertical></v-divider>
@@ -22,7 +22,7 @@
 <script>
 import Clock from "@/components/common/Clock"
 import Weather from "@/components/common/Weather"
-import DropdownMenu from "@/components/common/DropdownMenu";
+// import DropdownMenu from "@/components/common/DropdownMenu";
 import MenuCountry from "@/components/common/MenuCountry";
 
 export default {
@@ -30,7 +30,7 @@ export default {
   components: {
     Clock,
     Weather,
-    DropdownMenu,
+    // DropdownMenu,
     MenuCountry,
   },
   data: () => ({
