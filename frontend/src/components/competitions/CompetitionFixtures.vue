@@ -55,7 +55,6 @@
   <v-card-text>
     <v-row justify="center">
       <v-col cols="8">
-        <!-- <v-card -->
         <div
           class="pa-3 text-center"
           v-for="(data, key) in fixturesData.filter(fixturesFilter)"
@@ -69,7 +68,6 @@
               <v-img :src="data.teams.home.logo" />
             </v-col>
             <v-col cols="4">
-              <!-- <v-card -->
               <div
                 class="pa-3 text-center"
                 v-if="data.fixture.status.short === 'FT'">
@@ -78,15 +76,12 @@
                 <div style="padding-top: 10px;">
                   <a>{{ timestampToTime(data.fixture.timestamp) }}</a>
                 </div>
-              <!-- </v-card> -->
               </div>
-              <!-- <v-card -->
               <div
                 class="pa-3 text-center"
                 v-else>
                 
                 <h2>{{ timestampToTime(data.fixture.timestamp) }}</h2>
-              <!-- </v-card> -->
               </div>
             </v-col>
             <v-col cols="1">
@@ -99,7 +94,6 @@
           <br>
           <v-divider />
         </div>
-        <!-- </v-card> -->
       </v-col>
     </v-row>
   </v-card-text>

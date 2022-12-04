@@ -63,9 +63,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import { getCountriesAPI, getLeaguesAPI, getCupsAPI } from "@/api/common";
-// import { leagueStore } from "@/store/leagueStore";
+import { getCountriesAPI, getLeaguesAPI } from "@/api/common";
 
 export default {
   props: {
@@ -149,13 +147,10 @@ export default {
       });
     },
     clickCompetition(to, id, season, country) {
-      this.$router.push({
-        name: "Competitions",
-        params: {
-          country: country,
-          id: id,
-          season: season,
-        },
+      this.$paramsCompetitions({
+        country: country,
+        id: id,
+        season: season,
       });
       this.movePage(to + "/" + country + "/" + id  + "/" + season);
     },

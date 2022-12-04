@@ -82,13 +82,10 @@ export default {
         })
     },
     pushTeamData(data) {
-      this.$router.push({
-        name: "Team",
-        params: {
-          country: this.$route.params.country,
-          teamId: data.team.id,
-          leagueId: this.$route.params.id,
-        },
+      this.$paramsTeam({
+        country: this.$route.params.country,
+        teamId: data.team.id,
+        leagueId: this.$route.params.id,
       });
       this.movePage("/teams" + "/" + this.$route.params.country + "/" + this.$route.params.id + "/" + data.team.id);
     },

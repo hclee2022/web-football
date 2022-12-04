@@ -10,7 +10,6 @@
         <b>게시판</b>
       </span>
     </v-btn>
-    <!-- <DropdownMenu menuTitle="Competition" :listItems="menuListCompetition" /> -->
     <MenuCountry menuTitle="대회" />
     <DropdownMenu menuTitle="이적" :listItems="menuListTransfers" />
     <v-spacer></v-spacer>
@@ -26,8 +25,6 @@ import Weather from "@/components/common/Weather"
 import DropdownMenu from "@/components/common/DropdownMenu";
 import MenuCountry from "@/components/common/MenuCountry";
 
-// import { leagueStore } from "@/store/leagueStore";
-
 export default {
   name: "AppHeader",
   components: {
@@ -37,47 +34,6 @@ export default {
     MenuCountry,
   },
   data: () => ({
-    // // Lagacy
-    // menuListCompetition: [
-    //   {
-    //     title: "Leagues Europe",
-    //     to: "",
-    //     isGroup: true,
-    //     submenu: [
-    //       {
-    //         title: "England",
-    //         to: "/competitions",
-    //         params: {
-    //           "id": leagueStore().$state.leagueId.EPL,
-    //           "season": leagueStore().$state.season.S22,
-    //         },
-    //       },
-    //       {
-    //         title: "Spain",
-    //         to: "/competitions",
-    //         params: {
-    //           "id": leagueStore().$state.leagueId.La_Liga,
-    //           "season": leagueStore().$state.season.S22,
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     title: "Leagues Asia",
-    //     to: "/list",
-    //     isGroup: true,
-    //     submenu: [
-    //       {
-    //         title: "South Korea",
-    //         to: "/competitions",
-    //         params: {
-    //           "id": leagueStore().$state.leagueId.K1,
-    //           "season": leagueStore().$state.season.S22,
-    //         },
-    //       }
-    //     ],
-    //   },
-    // ],
     menuListTransfers: [
       {
         title: "Lastest Tranfers",

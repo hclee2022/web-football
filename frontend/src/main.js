@@ -15,6 +15,7 @@ import "vue3-easy-data-table/dist/style.css";
 
 // Plugins
 import page from "@/plugins/page";
+import routerPath from "@/plugins/routerPath";
 
 import Button from "@/components/common/Button";
 
@@ -30,6 +31,7 @@ app
   .use(vuetify)
   .use(createPinia())
   .use(page)
+  .use(routerPath)
   .use(GlobalCmComponent)
   .use(SetupCalendar, {})
   .component("Button", Button)

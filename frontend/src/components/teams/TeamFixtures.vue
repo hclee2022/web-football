@@ -37,7 +37,7 @@
       </template>
 
       <template #item-homeInfo="props">
-        <div class="home-wrapper text-left">
+        <div class="home-wrapper text-left" @click="pushTeamData(props.teams.home.id)">
           <v-img class="logo" :src="props.teams.home.logo" />
           <a class="name" target="_blank">
             {{ props.teams.home.name }}
@@ -60,7 +60,7 @@
       </template>
 
       <template #item-awayInfo="props">
-        <div class="away-wrapper text-right">
+        <div class="away-wrapper text-right" @click="pushTeamData(props.teams.away.id)">
           <a class="name" target="_blank">
             {{ props.teams.away.name }}
           </a>
@@ -180,6 +180,14 @@ export default {
         || ((props.teams.away.id === parseInt(this.$route.params.teamId)) && !props.teams.away.winner)) {
         return 3; // red
       }
+    },
+    pushTeamData(teamId) {
+      this.$paramsTeam({
+        country: this.$route.params.country,
+        teamId: teamId,
+        leagueId: this.$route.params.leagueId,
+      });
+      this.movePage("/teams" + "/" + this.$route.params.country + "/" + this.$route.params.leagueId + "/" + teamId);
     },
   }
 }

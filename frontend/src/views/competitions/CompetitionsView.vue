@@ -8,7 +8,7 @@
 import Competitions from "@/components/competitions/Competitions";
 
 export default {
-    components: { Competitions },
+  components: { Competitions },
 }
 </script>
 

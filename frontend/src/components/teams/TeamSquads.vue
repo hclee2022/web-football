@@ -15,7 +15,7 @@
             </div>
           </v-col>
           <v-col cols="4" v-for="(item, index) in getSquadsList(Object.keys(posItem)[0])" :key="index">
-            <v-card class="pa-3">
+            <v-card class="pa-3" @click="pushPlayerData(item.id)">
               <v-row>
                 <v-col cols="6">
                   <div>
@@ -84,7 +84,16 @@ export default {
     },
     getSquadsList(key) {
       return this.squadsList[key];
-    }
+    },
+    pushPlayerData(data) {
+      this.$router.push({
+        name: "Player",
+        params: {
+          id: data,
+        },
+      });
+      this.movePage("/players" + "/" + data);
+    },
   },
 }
 </script>

@@ -16,7 +16,7 @@
       </template>
 
       <template #item-teamInfo="props">
-        <div class="team-wrapper">
+        <div class="team-wrapper" @click="pushTeamData(props)">
           <v-img class="logo" :src="props.team.logo" />
           <a class="name" target="_blank">
             {{ props.team.name }}
@@ -112,6 +112,14 @@ export default {
       if (item.rank == this.teamRank) {
         return "selected-row";
       }
+    },
+    pushTeamData(data) {
+      this.$paramsTeam({
+        country: this.$route.params.country,
+        teamId: data.team.id,
+        leagueId: this.$route.params.leagueId,
+      });
+      this.movePage("/teams" + "/" + this.$route.params.country + "/" + this.$route.params.leagueId + "/" + data.team.id);
     },
   },
 }

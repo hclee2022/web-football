@@ -4,11 +4,11 @@
       <v-col class="pa-0 ma-0 text-center" cols="2">
         <v-row v-for="(item, idx) in divisionLogoList" :key="idx">
           <v-col class="text-right" cols="6">
-            <v-icon :color="backgroundColorList[idx]" size="x-large">
-              mdi-square
-            </v-icon>
+              <v-icon :color="backgroundColorList[idx]" size="x-large">
+                mdi-square
+              </v-icon>
           </v-col>
-          <v-col class="text-left" cols="6">
+          <v-col class="text-left" cols="6" @click="clickCompetition()" style="cursor: pointer;">
             <v-img :src="item" width="30" />
           </v-col>
         </v-row>
@@ -20,10 +20,6 @@
           :height="100" />
       </v-col>
     </v-row>
-    <!-- <Line
-      :chart-data="historyChartData()"
-      :chart-options="historyChartOptions()"
-      :height="100" /> -->
   </v-card>
 </template>
 
@@ -96,17 +92,11 @@ const canvasBackgroundColor = {
   id: "canvasBackgroundColor",
   // eslint-disable-next-line no-unused-vars
   beforeDraw(chart, args, pluginOptions) {
-    // console.log(chart);
-    // console.log(args);
-    // console.log(pluginOptions);
     // eslint-disable-next-line no-unused-vars
     const { ctx, chartArea: { top, bottom, left, right, width }, scales: { x, y }, } = chart;
 
     ctx.save();
 
-    // bgColors(0, 9.5, "rgba(255, 26, 104, 0.2)");
-    // bgColors(9.5, 20, "rgba(75, 192, 192, 0.2)");
-    // bgColors(0, 4, "rgba(255, 206, 86, 0.2)");
     for (var i = 0; i < pluginOptions.bgColorList.length; i++) {
       bgColors(
         Object.values(pluginOptions.colorObj[i])[0].min,
@@ -166,8 +156,6 @@ export default {
           response => {
             items = response;
             leagueStore().setCurLeague(this.$route.params.country);
-            console.log("items : ");
-            console.log(items);
 
             setTimeout(() => {
               this.historyLabels = Object.keys(items).map((v) => {
@@ -188,36 +176,29 @@ export default {
                 };
               });
 
-              // 역대 소속되었던 리그ID 리스트
               this.historyDivision = Object.values(items).map((v) => {
                 return v.id
               });
 
-              // 역대 소속되었던 리그ID 리스트 (중복제거)
               let divisionIdList = [...new Set(this.historyDivision)];
 
               this.leagueSizeList = Object.values(items).map((v) => {
                 return v.size
               });
               this.chartSize = [...new Set(this.leagueSizeList)].reduce((acc, cur) => acc + cur) + [...new Set(this.leagueSizeList)].length;
-              console.log("reduce : ");
-              console.log([...new Set(this.leagueSizeList)].reduce((acc, cur) => acc + cur) + [...new Set(this.leagueSizeList)].length);
 
-              let rankUpdate = []; // 상위/하부 리그에 따라 차트 데이터 실제값 변화
-              let divisionList = []; // 역대 소속되었던 리그 인덱스(leagueStore)
+              let rankUpdate = [];
+              let divisionList = [];
               for (var i = 0; i < this.historyDivision.length; i++) {
                 for (var j = 0; j < leagueStore().getLeaguesOfCountry.length; j++) {
                   for (var k = 0; k < leagueStore().getLeaguesOfCountry[j].length; k++) {
                     if (this.historyDivision[i] == leagueStore().getLeaguesOfCountry[j][k]) {
-                      // rankUpdate.push((this.historyRankList[i] + (j * 20)) / 2);
                       rankUpdate.push((this.historyRankList[i] + (j * this.leagueSizeList[i])) / 2);
                       divisionList.push(j);
                     }
                   }
                 }
               }
-              console.log("rankUpdate : ");
-              console.log(rankUpdate);
               this.chartRankList = rankUpdate;
               rankUpdate = [];
 
@@ -340,6 +321,14 @@ export default {
         .catch(e => {
           console.log(e);
         })
+    },
+    clickCompetition() {
+      this.$paramsCompetitions({
+        country: this.$route.params.country,
+        id: this.$route.params.leagueId,
+        season: dayjs().format("YYYY"),
+      });
+      this.movePage("/competitions" + "/" + this.$route.params.country + "/" + this.$route.params.leagueId  + "/" + dayjs().format("YYYY"));
     },
     historyChartData() {
       return {
