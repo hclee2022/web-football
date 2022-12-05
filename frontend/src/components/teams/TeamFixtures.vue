@@ -37,7 +37,7 @@
       </template>
 
       <template #item-homeInfo="props">
-        <div class="home-wrapper text-left" @click="pushTeamData(props.teams.home.id)">
+        <div class="team-home-wrapper text-left" @click="pushTeamData(props.teams.home.id)">
           <v-img class="logo" :src="props.teams.home.logo" />
           <a class="name" target="_blank">
             {{ props.teams.home.name }}
@@ -60,7 +60,7 @@
       </template>
 
       <template #item-awayInfo="props">
-        <div class="away-wrapper text-right" @click="pushTeamData(props.teams.away.id)">
+        <div class="team-away-wrapper text-right" @click="pushTeamData(props.teams.away.id)">
           <a class="name" target="_blank">
             {{ props.teams.away.name }}
           </a>
@@ -194,7 +194,7 @@ export default {
 </script>
 
 <style>
-.home-wrapper {
+.team-home-wrapper {
   padding: 5px;
   /* display: flex; */
   align-items: center;
@@ -202,7 +202,7 @@ export default {
   cursor: pointer;
 }
 
-.home-wrapper .logo {
+.team-home-wrapper .logo {
   margin-right: 10px;
   display: inline-block;
   width: 20px;
@@ -213,12 +213,12 @@ export default {
   /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
 }
 
-.home-wrapper .name {
+.team-home-wrapper .name {
   text-decoration: none;
   color: green;
 }
 
-.away-wrapper {
+.team-away-wrapper {
   padding: 5px;
   /* display: flex; */
   align-items: center;
@@ -226,7 +226,7 @@ export default {
   cursor: pointer;
 }
 
-.away-wrapper .logo {
+.team-away-wrapper .logo {
   margin-left: 10px;
   display: inline-block;
   width: 20px;
@@ -237,7 +237,7 @@ export default {
   /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
 }
 
-.away-wrapper .name {
+.team-away-wrapper .name {
   text-decoration: none;
   color: green;
 }

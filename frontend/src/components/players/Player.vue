@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card elevation="10" outlined width="50%" class="mx-auto">
+    <v-card elevation="10" outlined width="60%" class="mx-auto">
       <v-banner>
         <v-row align="center">
           <v-col class="text-center" cols="3">
@@ -91,7 +91,7 @@
             </template>
 
             <template #item-league="props">
-              <div class="league-wrapper text-left" @click="clickCompetition('/competitions', props.league.id, props.league.country)">
+              <div class="career-league-wrapper text-left" @click="clickCompetition('/competitions', props.league.id, props.league.country)">
                 <v-img class="logo" :src="props.league.logo" />
                 <a class="name" target="_blank">
                   {{ props.league.name }}
@@ -100,7 +100,7 @@
             </template>
 
             <template #item-team="props">
-              <div class="team-wrapper text-left" @click="pushTeamData(props.league.country, props.team.id, props.league.id)">
+              <div class="career-team-wrapper text-left" @click="pushTeamData(props.league.country, props.team.id, props.league.id)">
                 <v-img class="logo" :src="props.team.logo" />
                 <a class="name" target="_blank">
                   {{ props.team.name }}
@@ -301,7 +301,7 @@ export default {
   /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
 }
 
-.league-wrapper {
+.career-league-wrapper {
   padding: 5px;
   /* display: flex; */
   align-items: center;
@@ -309,7 +309,7 @@ export default {
   cursor: pointer;
 }
 
-.league-wrapper .logo {
+.career-league-wrapper .logo {
   margin-right: 5px;
   display: inline-block;
   width: 25px;
@@ -320,13 +320,13 @@ export default {
   /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
 }
 
-.league-wrapper .name {
+.career-league-wrapper .name {
   text-decoration: none;
   vertical-align: middle;
   color: green;
 }
 
-.team-wrapper {
+.career-team-wrapper {
   padding: 5px;
   /* display: flex; */
   align-items: center;
@@ -334,7 +334,7 @@ export default {
   cursor: pointer;
 }
 
-.team-wrapper .logo {
+.career-team-wrapper .logo {
   margin-right: 10px;
   display: inline-block;
   width: 20px;
@@ -345,7 +345,7 @@ export default {
   /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
 }
 
-.team-wrapper .name {
+.career-team-wrapper .name {
   text-decoration: none;
   color: green;
 }
