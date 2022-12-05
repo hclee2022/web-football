@@ -62,12 +62,12 @@
           
           <v-row justify="center" align="center">
             <v-col>
-              <div class="home-wrapper" @click="pushTeamData(data.teams.home.id)">
-                <v-img class="logo" :src="data.teams.home.logo" />
+              <div class="home-wrapper text-right" @click="pushTeamData(data.teams.home.id)">
                 <b class="name">{{ data.teams.home.name }}</b>
+                <v-img class="logo" :src="data.teams.home.logo" />
               </div>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="2">
               <div
                 class="pa-3 text-center"
                 v-if="data.fixture.status.short === 'FT'">
@@ -85,7 +85,7 @@
               </div>
             </v-col>
             <v-col>
-              <div class="away-wrapper" @click="pushTeamData(data.teams.home.id)">
+              <div class="away-wrapper text-left" @click="pushTeamData(data.teams.home.id)">
                 <v-img class="logo" :src="data.teams.away.logo" />
                 <b class="name">{{ data.teams.away.name }}</b>
               </div>
@@ -252,7 +252,7 @@ export default {
 }
 
 .home-wrapper .logo {
-  margin-right: 50px;
+  margin-left: 50px;
   display: inline-block;
   width: 40px;
   /* height: 40px; */
