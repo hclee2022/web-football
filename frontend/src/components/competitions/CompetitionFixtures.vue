@@ -62,10 +62,10 @@
           
           <v-row justify="center" align="center">
             <v-col>
-              <h3>{{ data.teams.home.name }}</h3>
-            </v-col>
-            <v-col cols="1">
-              <v-img :src="data.teams.home.logo" />
+              <div class="home-wrapper" @click="pushTeamData(data.teams.home.id)">
+                <v-img class="logo" :src="data.teams.home.logo" />
+                <b class="name">{{ data.teams.home.name }}</b>
+              </div>
             </v-col>
             <v-col cols="4">
               <div
@@ -84,11 +84,11 @@
                 <h2>{{ timestampToTime(data.fixture.timestamp) }}</h2>
               </div>
             </v-col>
-            <v-col cols="1">
-              <v-img :src="data.teams.away.logo" />
-            </v-col>
             <v-col>
-              <h3>{{ data.teams.away.name }}</h3>
+              <div class="away-wrapper" @click="pushTeamData(data.teams.home.id)">
+                <v-img class="logo" :src="data.teams.away.logo" />
+                <b class="name">{{ data.teams.away.name }}</b>
+              </div>
             </v-col>
           </v-row>
           <br>
@@ -229,11 +229,67 @@ export default {
     },
     timestampToTime(timestamp) {
       return dayjs.unix(timestamp).format("H:mm");
-    }
+    },
+    pushTeamData(teamId) {
+      this.$paramsTeam({
+        country: this.$route.params.country,
+        teamId: teamId,
+        leagueId: this.$route.params.id,
+      });
+      this.movePage("/teams" + "/" + this.$route.params.country + "/" + this.$route.params.id + "/" + teamId);
+    },
   },
 }
 </script>
 
 <style>
+.home-wrapper {
+  /* padding: 5px; */
+  /* display: flex; */
+  align-items: center;
+  justify-items: center;
+  cursor: pointer;
+}
 
+.home-wrapper .logo {
+  margin-right: 50px;
+  display: inline-block;
+  width: 40px;
+  /* height: 40px; */
+  /* border-radius: 50%; */
+  object-fit: cover;
+  vertical-align: middle;
+  /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
+}
+
+.home-wrapper .name {
+  font-size: 20px;
+  text-decoration: none;
+  color: green;
+}
+
+.away-wrapper {
+  /* padding: 5px; */
+  /* display: flex; */
+  align-items: center;
+  justify-items: center;
+  cursor: pointer;
+}
+
+.away-wrapper .logo {
+  margin-right: 50px;
+  display: inline-block;
+  width: 40px;
+  /* height: 40px; */
+  /* border-radius: 50%; */
+  object-fit: cover;
+  vertical-align: middle;
+  /* box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 10%); */
+}
+
+.away-wrapper .name {
+  font-size: 20px;
+  text-decoration: none;
+  color: green;
+}
 </style>

@@ -19,7 +19,6 @@
             </div>
           </v-col>
           <v-divider vertical inset />
-          <!-- <v-col style="margin-left: 10%;"> -->
           <v-col class="ma-0">
             <v-row>
               <v-col>
@@ -184,6 +183,7 @@ export default {
         let items = this.getPlayerCareerFromAPI().then(
           response => {
             items = response;
+            console.log(items);
 
             setTimeout(() => {
               this.loading = false;
